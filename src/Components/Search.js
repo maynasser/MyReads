@@ -1,8 +1,9 @@
+import {Link} from 'react-router-dom';
 import React from 'react'
 import * as BooksAPI from '../BooksAPI.js'
 import Book from './Book'
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+
 
 
 class Search extends React.Component{
@@ -14,7 +15,6 @@ class Search extends React.Component{
   state = {
     query :'',
     searchBooks: [],
-    booklength:0,
     bookNotFound: false
   };
 
@@ -25,25 +25,25 @@ class Search extends React.Component{
   };
 
   searchBook = (query) => {
-    this.setState({query: query.trim()}); 
+    this.setState({query: query}); 
     BooksAPI.search(query).then((books) => { 
-      console.log('search')
       if (!query){this.setState({searchBooks: [], bookNotFound: false})}
       else {
           if (books.length > 0)
-          {books.map(book => 
+            {books.map(book => 
                   (books.filter((item) =>
                     item.id === book.id).map((item) =>
                       book.shelf = item.shelf)))
                       this.setState({searchBooks: books, bookNotFound: false})
-           } else {this.setState({searchBooks: [], bookNotFound: true})}
+            } else {this.setState({searchBooks: [], bookNotFound: true})}
     }}
   )
     return
   };
   
   render(){
-    const { query } = this.state
+    const { query, searchBooks, bookNotFound } = this.state;
+    const {books , changeShelf} = this.props;
     return(
       <div className="search-books">
       <div className="search-books-bar">
@@ -58,16 +58,10 @@ class Search extends React.Component{
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {this.state.searchBooks.map( book =>
-        <Book
-        book ={book}
-        books ={this.books}
-        key ={book.id}
-        changeShelf ={this.changeShelf}
-        />
-          )}
+          {searchBooks.map((book)=>
+          <Book book = {book} books = {books} key = {book.id} changeShelf = {changeShelf} />)}
         </ol>
-        {this.state.bookNotFound ? <h3>Please, Try again</h3> : '' }
+        {bookNotFound ? <h3>Please, Try again</h3> : '' }
       </div> 
     </div>
   )
