@@ -1,10 +1,11 @@
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from './Components/Search'
 import Shelves from './Components/Shelves'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import {Link} from 'react-router-dom'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -20,8 +21,8 @@ class BooksApp extends React.Component {
 
 
   changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf);
-    let updatedBooks = [];
+    BooksAPI.update(book, shelf).then(() => 
+   { let updatedBooks = [];
     updatedBooks = this.state.books.filter(b => b.id !== book.id);
     
     if (shelf !== 'none') {
@@ -29,11 +30,11 @@ class BooksApp extends React.Component {
     updatedBooks = updatedBooks.concat(book);
   }
 
-  this.setState({books: updatedBooks,});
+  this.setState({books: updatedBooks,});})
   };
 
   render() {
-    //const books = this.state;
+    
     return (
       <Router>
       <div className="app">
@@ -51,7 +52,7 @@ class BooksApp extends React.Component {
             changeShelf={this.changeShelf}
             />
             <div className="open-search">
-					  <Link to='/search'>Add a book</Link>
+		<Link to='/search'>Add a book</Link>
             </div> 
           </div>
         )}
