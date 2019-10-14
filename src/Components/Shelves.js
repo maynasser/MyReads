@@ -15,23 +15,21 @@ render()
 {
     return(
     <div className="list-books-content">
-            <div>
                 <Shelf 
                 title = "Currently Reading" 
-                books = {this.props.books.filter((book) => book.shelf ==="CR")}
+                books = {this.props.books.filter((book) => book.shelf ==="currentlyReading")}
                 changeShelf = {this.changeShelfHandler}
                 />
                 <Shelf 
                 title = "Want To Read"
-                books = {this.props.books.filter((book) => book.shelf ==="W2R")}
+                books = {this.props.books.filter((book) => book.shelf ==="wantToRead")}
                 changeShelf = {this.changeShelfHandler}
                 />
                 <Shelf 
                 title = "Read"
-                books = {this.props.books.filter((book) => book.shelf ==="R")}
+                books = {this.props.books.filter((book) => book.shelf ==="read")}
                 changeShelf = {this.changeShelfHandler}
                 />
-            </div>
         </div>
     )}
     
