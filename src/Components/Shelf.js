@@ -3,21 +3,18 @@ import Book from './Book'
 
 
 const Shelf = props => {
-    const {books, shelf, changeShelf} = props;
-    const filterShelf = books.filter(book => book.shelf === shelf);
-         return (
+    const {books, changeShelf} = props;
+      let shelfBooks = books.map(book => (
+    <Book book={book} books={books} key={book.id} changeShelf={changeShelf}/>))  
+ return (
              <div className = "bookshelf">
                    <h2 className = "bookshelf-title"> {props.title} </h2>
                    <div className = "bookshelf-books">
                      <ol className = "books-grid">
-                         {filterShelf.map(book => (
-                            <Book
-                            key = {book.id} book = {book} shelf = {shelf.key} changeShelf = {changeShelf}
-                            />))}
+                         {shelfBooks}
                      </ol>
                    </div>
                  </div>
          )
-     
 }
 export default Shelf
