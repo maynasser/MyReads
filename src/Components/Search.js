@@ -38,7 +38,6 @@ class Search extends React.Component{
             } else {this.setState({searchBooks: [], bookNotFound: true})}
     }}
   )
-    return
   };
   
   render(){
